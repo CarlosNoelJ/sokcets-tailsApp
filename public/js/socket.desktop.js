@@ -3,7 +3,6 @@ var socket = io();
 
 var searchParams = new URLSearchParams( window.location.search );
 
-
 if(!searchParams.has('Desktop')){
     window.location = 'index.html';
     throw new Error('Desktop is necessary');
@@ -21,5 +20,13 @@ $('button').on('click',function(){
     socket.emit('attendTicket',{desktop: desktop}, function(resp){
 
         console.log(resp);
+
+        if( resp ===  'No tickets to Attend'){
+            label.text( resp);
+            alert(resp);
+            return;
+        }
+
+        label.text( 'Ticket ' + resp.number);
     });
 });

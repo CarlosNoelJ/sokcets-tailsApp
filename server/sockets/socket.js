@@ -16,7 +16,8 @@ io.on('connection', (client) => {
 
     // emit an event call 'actualState' and return the last ticket in a formtar.
     client.emit('actualState', {
-        actual: ticketControl.getLastTicket()  
+        actual: ticketControl.getLastTicket() ,
+        last4: ticketControl.getLast4()
     });
 
 
@@ -34,9 +35,10 @@ io.on('connection', (client) => {
         callback(attendTicket);
 
         // update/notify change about the last 4
-
-        
-
+        // emit 'last4'
+        client.broadcast.emit('last4', {
+            last4: ticketControl.getLast4()
+        });
     });
 
 });
